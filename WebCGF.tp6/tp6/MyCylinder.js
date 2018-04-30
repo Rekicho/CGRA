@@ -6,12 +6,13 @@
 
 class MyCylinder extends CGFobject
 {
-	constructor(scene,slices,stacks) 
+	constructor(scene,slices,stacks, outside) 
 	{
 		super(scene);
 
 		this.slices = slices;
 		this.stacks = stacks;
+		this.outside = outside;
 		
 		this.initBuffers();
 	};
@@ -43,12 +44,25 @@ class MyCylinder extends CGFobject
 
 				if(j != this.stacks)
 				{
-					this.indices.push(edge + i, edge + i + 1, nextedge + i);
-				
-					if (i == this.slices - 1)
-						this.indices.push(edge, edge + i + 1, edge + i);
+					if(this.outside)
+					{
+						this.indices.push(edge + i, edge + i + 1, nextedge + i);
+						
+						if (i == this.slices - 1)
+							this.indices.push(edge, edge + i + 1, edge + i);
 
-					else this.indices.push(nextedge + i + 1, nextedge + i, edge + i + 1);
+						else this.indices.push(nextedge + i + 1, nextedge + i, edge + i + 1);
+					}
+
+					else
+					{
+						this.indices.push(nextedge + i, edge + i + 1, edge + i);
+				
+						if (i == this.slices - 1)
+							this.indices.push(edge + i, edge + i + 1, edge);
+						
+						else this.indices.push(edge + i + 1, nextedge + i, nextedge + i + 1);
+					}
 				}
 
 				this.texCoords.push(i/this.slices,div);
