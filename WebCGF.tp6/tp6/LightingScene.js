@@ -1,11 +1,3 @@
-var degToRad = Math.PI / 180.0;
-
-var BOARD_WIDTH = 6.0;
-var BOARD_HEIGHT = 4.0;
-
-var BOARD_A_DIVISIONS = 30;
-var BOARD_B_DIVISIONS = 100;
-
 var FPS = 60;
 
 class LightingScene extends CGFscene 
@@ -19,14 +11,20 @@ class LightingScene extends CGFscene
 	{
 		super.init(application);
 
+		this.light1=false; 
+		this.light2=false; 
+		this.light3=false; 
+		this.light4=false; 
+		this.light5=false;
+		this.displayAxis = false;
+
 		this.enableTextures(true);
 
 		this.initCameras();
 
 		this.initLights();
 
-		//this.gl.clearColor(0.529412, 0.692237, 0.921569, 1.0);
-		this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
+		this.gl.clearColor(0.529412, 0.692237, 0.921569, 1.0);
 		this.gl.clearDepth(100.0);
 		this.gl.enable(this.gl.DEPTH_TEST);
 		this.gl.enable(this.gl.CULL_FACE);
@@ -37,13 +35,10 @@ class LightingScene extends CGFscene
 		//Scene elements
 
 		this.car = new MyVehicle(this);
-		this.terrain = new MyTerrain(this,9,0,2,0,2);
+		this.terrain = new MyTerrain(this,8,0,5,0,5);
 
 		// Materials
 		this.materialDefault = new CGFappearance(this);
-		this.testtexture = new CGFappearance(this);
-		this.testtexture.loadTexture("../resources/images/board.png");
-
 		this.setUpdatePeriod(1000/FPS);
 	};
 
@@ -54,29 +49,69 @@ class LightingScene extends CGFscene
 
 	initLights() 
 	{
-		this.setGlobalAmbientLight(0.5,0.5,0.5,1);
+		this.setGlobalAmbientLight(0.5,0.5,0.5, 1.0);
+		
+		this.lights[0].setPosition(4, 6, 1, 1);
+	
+		this.lights[1].setPosition(10.5, 6.0, 1.0, 1.0);
 
-		this.lights[0].setPosition(15, 2, 5, 1);
-        this.lights[0].setDiffuse(1.0,1.0,1.0,1.0);
-        this.lights[0].enable();
-        this.lights[0].update();
+		this.lights[2].setPosition(10.5, 6.0, 5.0, 1.0);
+	
+		this.lights[3].setPosition(4, 6.0, 5.0, 1.0);
 
+		this.lights[4].setPosition(0, 4, 7.5, 1);
 
+		this.lights[0].setAmbient(0, 0, 0, 1);
+		this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
+		this.lights[0].setSpecular(1.0, 1.0, 0.0, 1.0);
 
-        this.lights[1].setPosition(1, 3, 1, 1);
-        this.lights[1].setDiffuse(1.0,1.0,1.0,1.0);
-        //this.lights[1].enable();
-        this.lights[1].update();
-        this.lights[1].setVisible(true);
-        this.lights[1].setSpotDirection(1,1,1);
-        
+		this.lights[1].setAmbient(0, 0, 0, 1);
+		this.lights[1].setDiffuse(1.0, 1.0, 1.0, 1.0);
 
+		this.lights[2].setAmbient(0, 0, 0, 1);
+		this.lights[2].setDiffuse(1.0, 1.0, 1.0, 1.0);
+		this.lights[2].setSpecular(1.0, 1.0, 1.0, 1.0);
+		this.lights[2].setConstantAttenuation(0);
+		this.lights[2].setLinearAttenuation(1);
+		this.lights[2].setQuadraticAttenuation(0);
+
+		this.lights[3].setAmbient(0, 0, 0, 1);
+		this.lights[3].setDiffuse(1.0, 1.0, 1.0, 1.0);
+		this.lights[3].setSpecular(1.0, 1.0, 0.0, 1.0);
+		this.lights[3].setConstantAttenuation(0);
+		this.lights[3].setLinearAttenuation(0);
+		this.lights[3].setQuadraticAttenuation(1);
 	};
 
 	updateLights() 
 	{
 		for (var i = 0; i < this.lights.length; i++)
 			this.lights[i].update();
+
+		if(this.light1)
+			this.lights[0].enable();
+
+		else this.lights[0].disable();
+
+		if(this.light2)
+			this.lights[1].enable();
+
+		else this.lights[1].disable();
+
+		if(this.light3)
+			this.lights[2].enable();
+
+		else this.lights[2].disable();
+
+		if(this.light4)
+			this.lights[3].enable();
+
+		else this.lights[3].disable();
+
+		if(this.light5)
+			this.lights[4].enable();
+
+		else this.lights[4].disable();
 	}
 
 
@@ -99,21 +134,20 @@ class LightingScene extends CGFscene
 		this.updateLights();
 
 		// Draw axis
-		this.axis.display();
+		if(this.displayAxis)
+			this.axis.display();
 
-		
+		this.materialDefault.apply();
 
 		//Scene elements
 		this.pushMatrix();
-		//this.materialDefault.apply();
-		//this.translate(0,4,0);
+		this.translate(0,0,0);
 		this.car.display();
 		this.popMatrix();
 
 		
 		this.pushMatrix();
-		this.scale(10,10,10);
-		//this.terrain.display();
+		this.terrain.display();
 		this.popMatrix();
 
 		// ---- END Scene drawing section
@@ -125,4 +159,8 @@ class LightingScene extends CGFscene
 		this.deltaTime = currTime - this.lastTime;
 		this.lastTime = currTime;
 	};
+
+	doSomething()
+	{ console.log("Doing something..."); };
+
 };
