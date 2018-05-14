@@ -25,6 +25,7 @@ class LightingScene extends CGFscene
 
 		this.initLights();
 
+		//this.gl.clearColor(0.529412, 0.692237, 0.921569, 1.0);
 		this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
 		this.gl.clearDepth(100.0);
 		this.gl.enable(this.gl.DEPTH_TEST);
@@ -36,9 +37,12 @@ class LightingScene extends CGFscene
 		//Scene elements
 
 		this.car = new MyVehicle(this);
+		this.terrain = new MyTerrain(this,9,0,2,0,2);
 
 		// Materials
 		this.materialDefault = new CGFappearance(this);
+		this.testtexture = new CGFappearance(this);
+		this.testtexture.loadTexture("../resources/images/board.png");
 
 		this.setUpdatePeriod(1000/FPS);
 	};
@@ -50,12 +54,23 @@ class LightingScene extends CGFscene
 
 	initLights() 
 	{
-		this.setGlobalAmbientLight(0.3,0.3,0.3,1);
+		this.setGlobalAmbientLight(0.5,0.5,0.5,1);
 
 		this.lights[0].setPosition(15, 2, 5, 1);
         this.lights[0].setDiffuse(1.0,1.0,1.0,1.0);
         this.lights[0].enable();
         this.lights[0].update();
+
+
+
+        this.lights[1].setPosition(1, 3, 1, 1);
+        this.lights[1].setDiffuse(1.0,1.0,1.0,1.0);
+        //this.lights[1].enable();
+        this.lights[1].update();
+        this.lights[1].setVisible(true);
+        this.lights[1].setSpotDirection(1,1,1);
+        
+
 	};
 
 	updateLights() 
@@ -86,11 +101,20 @@ class LightingScene extends CGFscene
 		// Draw axis
 		this.axis.display();
 
-		this.materialDefault.apply();
+		
 
 		//Scene elements
-
+		this.pushMatrix();
+		//this.materialDefault.apply();
+		//this.translate(0,4,0);
 		this.car.display();
+		this.popMatrix();
+
+		
+		this.pushMatrix();
+		this.scale(10,10,10);
+		//this.terrain.display();
+		this.popMatrix();
 
 		// ---- END Scene drawing section
 	};

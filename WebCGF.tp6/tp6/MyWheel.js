@@ -16,6 +16,11 @@ class MyWheel extends CGFobject
 
 		this.wheelAppearence = new CGFappearance(this.scene);
 		this.wheelAppearence.loadTexture("../resources/images/wheel.png");
+		/*this.wheelAppearence.setAmbient(1,1,1,1);
+		this.wheelAppearence.setDiffuse(0,0,1,1);
+		this.wheelAppearence.setSpecular(0.2,0.2,0.2,1);	
+		this.wheelAppearence.setShininess(10);*/
+		this.wheelAppearence.setTextureWrap('CLAMP_TO_EDGE','CLAMP_TO_EDGE');
 	};
 
 	display()

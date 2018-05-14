@@ -19,7 +19,8 @@ class MyTerrain extends Plane
 		//this.texture.setAmbient(1,1,1,1);
 
 		this.texture = new CGFappearance(this.scene);
-		this.texture.loadTexture("../resources/images/floor.png");
+		this.texture.loadTexture("../resources/images/sand.png");
+		this.texture.setTextureWrap('REPEAT','REPEAT');
 	};
 
 	display()
@@ -28,11 +29,15 @@ class MyTerrain extends Plane
 		this.scene.pushMatrix();
 		this.scene.rotate(-Math.PI/2,1,0,0);
 		
-		
-	
 		this.drawElements(this.primitiveType);
-
-		this.texture.apply();
+		 
+		 
+		if(this.texture)
+		{
+			this.texture.apply();
+		}
+	
+		
 		this.scene.popMatrix();
 
 	};

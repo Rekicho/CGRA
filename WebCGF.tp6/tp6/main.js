@@ -14,6 +14,7 @@ serialInclude([
 	'Plane.js',
 	'MyVehicle.js',
 	'MyWheel.js',
+	'MyTerrain.js',
 	'MyRing.js', 
 
 	main=function() {
