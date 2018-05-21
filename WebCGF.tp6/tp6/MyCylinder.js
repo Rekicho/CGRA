@@ -41,6 +41,7 @@ class MyCylinder extends CGFobject
 
 				this.vertices.push(Math.cos(alpha), Math.sin(alpha), div);
 				this.normals.push(Math.cos(alpha), Math.sin(alpha), 0);
+				this.texCoords.push(1- i/this.slices,div);
 
 				if(j != this.stacks)
 				{
@@ -64,8 +65,6 @@ class MyCylinder extends CGFobject
 						else this.indices.push(edge + i + 1, nextedge + i, nextedge + i + 1);
 					}
 				}
-
-				this.texCoords.push(i/this.slices,div);
 			}
 		}
 

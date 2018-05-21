@@ -20,7 +20,6 @@ class LightingScene extends CGFscene
 
 		this.carposition = 0;
 		this.carvelocity = 0;
-		this.carsteer = 0;
 
 		this.enableTextures(true);
 
@@ -36,13 +35,18 @@ class LightingScene extends CGFscene
 
 		this.axis = new CGFaxis(this);
 
-		//Scene elements
-
-		this.car = new MyVehicle(this);
-		this.terrain = new MyTerrain(this,8,0,5,0,5);
-
 		// Materials
 		this.materialDefault = new CGFappearance(this);
+
+		this.texture = new CGFappearance(this);
+		this.texture.loadTexture("../resources/images/camo.png");
+		this.texture.setAmbient(1,1,1,1);
+
+		//Scene elements
+
+		this.car = new MyVehicle(this, this.materialDefault, this.texture);
+		this.terrain = new MyTerrain(this,8,0,5,0,5);
+
 		this.setUpdatePeriod(1000/FPS);
 	};
 
@@ -144,13 +148,17 @@ class LightingScene extends CGFscene
 		this.materialDefault.apply();
 
 		//Scene elements
+
+		//CAR
 		this.pushMatrix();
-		this.rotate(this.carsteer,0,1,0);
-		this.translate(this.carposition,1,0);
-		this.car.display();
+			this.rotate(this.car.getSteer(),0,1,0);
+			this.translate(this.carposition,1,0);
+				this.rotate(-0.07,0,0,1);
+				this.translate(0,1.5,0);
+				this.car.display();
 		this.popMatrix();
 
-		
+		//TERRAIN
 		this.pushMatrix();
 		this.terrain.display();
 		this.popMatrix();
@@ -195,10 +203,10 @@ class LightingScene extends CGFscene
 			keysPressed=true;
 
 			if(this.carvelocity > 0)
-				this.carsteer += this.deltaTime / 1000;
+				this.car.addSteer(this.deltaTime / 1000);
 
 			if(this.carvelocity < 0)
-				this.carsteer -= this.deltaTime / 1000;
+				this.car.addSteer(-this.deltaTime / 1000);
 		}
 
 		if (this.gui.isKeyPressed("KeyD"))
@@ -207,10 +215,10 @@ class LightingScene extends CGFscene
 			keysPressed=true;
 
 			if(this.carvelocity > 0)
-				this.carsteer -= this.deltaTime / 1000;
+				this.car.addSteer(-this.deltaTime / 1000);
 
 			if(this.carvelocity < 0)
-				this.carsteer += this.deltaTime / 1000;
+				this.car.addSteer(this.deltaTime / 1000);
 		}
 
 		this.carposition += this.carvelocity;

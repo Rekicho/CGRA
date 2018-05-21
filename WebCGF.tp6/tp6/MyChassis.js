@@ -1,42 +1,32 @@
 /**
- * MyVehicle
+ * MyChassis
  * @param gl {WebGLRenderingContext}
  * @constructor
  */
 
-class MyVehicle extends CGFobject
+class MyChassis extends CGFobject
 {
 	constructor(scene) 
 	{
 		super(scene);
-		//this.wheel = new MyWheel(scene);
-		this.bar=new MyCylinder(this.scene,12,1);
+		this.bar = new MyCylinder(this.scene,12,1);
+
+
+		this.texture = new CGFappearance(this.scene);
+		this.texture.setAmbient(0.3,0.3,0.3,1);
+
 	};
 
 	display()
 	{
-		//this.wheel.display();
-
-
-
-
-		//X GUIDE TO BUILD
-			this.scene.pushMatrix();
-
-			this.scene.translate(-3,0,0);
-			this.scene.rotate(Math.PI/2,0,1,0);
-			this.scene.scale(0.25,0.25,10);
-			this.bar.display();
-
-			this.scene.popMatrix();
-
-
+		this.texture.apply();
+		
 		//Z GUIDE TO BUILD BACK
 			this.scene.pushMatrix();
 
-			this.scene.translate(0,0,2);
+			this.scene.translate(-1,0,3);
 			this.scene.rotate(Math.PI,0,1,0);
-			this.scene.scale(0.1,0.1,4);
+			this.scene.scale(0.1,0.1,6);
 			this.bar.display();
 
 			this.scene.popMatrix();
@@ -44,7 +34,7 @@ class MyVehicle extends CGFobject
 
 
 
-		//Z GUIDE TO BUILD FRONT
+		//FRONT AXIS
 			this.scene.pushMatrix();
 
 			this.scene.translate(6.5,0,1.5);
@@ -168,16 +158,6 @@ class MyVehicle extends CGFobject
 			this.scene.popMatrix();
 
 
-		//Z GUIDE TO BUILD BACK BIT
-			this.scene.pushMatrix();
-
-			this.scene.translate(-2.5,0,1);
-			this.scene.rotate(Math.PI,0,1,0);
-			this.scene.scale(0.1,0.1,2);
-			//this.bar.display();
-
-			this.scene.popMatrix();
-
 
 		//ROOF FRONT
 			this.scene.pushMatrix();
@@ -250,9 +230,143 @@ class MyVehicle extends CGFobject
 			this.scene.popMatrix();
 
 
+	//BACK BAR LEFT
+		this.scene.pushMatrix();
+			this.scene.translate(0,0,-2);
+			this.scene.rotate(-(Math.PI * 70 )/180,0,1,0);
+			this.scene.scale(0.1,0.1,2.9);
+			this.bar.display();
 
+		this.scene.popMatrix();
+
+
+		this.scene.pushMatrix();
+			this.scene.translate(-0.3,1.15,-2.3);
+			this.scene.rotate(-(Math.PI * 62 )/180,0,1,0);
+			this.scene.scale(0.1,0.1,2.8);
+			this.bar.display();
+
+		this.scene.popMatrix();
+
+
+
+
+		//BACK BAR RIGHT
+		this.scene.pushMatrix();
+			this.scene.translate(0,0,2);
+			this.scene.rotate(Math.PI + (Math.PI * 70 )/180,0,1,0);
+			this.scene.scale(0.1,0.1,2.9);
+			this.bar.display();
+
+		this.scene.popMatrix();
+
+
+		this.scene.pushMatrix();
+			this.scene.translate(-0.3,1.15,2.3);
+			this.scene.rotate(Math.PI + (Math.PI * 62 )/180,0,1,0);
+			this.scene.scale(0.1,0.1,2.8);
+			this.bar.display();
+
+		this.scene.popMatrix();
+
+
+		//BACK BAR 
+  		this.scene.pushMatrix();
+
+			this.scene.translate(-2.7,0,-1.05);
+			this.scene.scale(0.1,0.1,2.1);
+			this.bar.display();
+
+		this.scene.popMatrix();
+
+		this.scene.pushMatrix();
+
+			this.scene.translate(-2.7,1.2,-1.05);
+			this.scene.scale(0.1,0.1,2.1);
+			this.bar.display();
+
+		this.scene.popMatrix();
+
+
+
+	
+
+
+		//VERTICAL BACK BAR LEFT
+  		this.scene.pushMatrix();
+  		
+			this.scene.translate(-2.7,0,-1);
+			this.scene.rotate(-Math.PI/2,1,0,0);
+			this.scene.scale(0.1,0.1,1.25);
+			this.bar.display();
+
+		this.scene.popMatrix();
+
+
+
+		//VERTICAL BACK BAR RIGHT
+  		this.scene.pushMatrix();
+  		
+			this.scene.translate(-2.7,0,1);
+			this.scene.rotate(-Math.PI/2,1,0,0);
+			this.scene.scale(0.1,0.1,1.25);
+			this.bar.display();
+
+		this.scene.popMatrix();
+
+
+		//HORIZONTAL TOP BAR RIGHT
+			this.scene.pushMatrix();
+  		
+			this.scene.translate(1,2.5,1);
+			this.scene.rotate(-Math.PI/2,0,1,0);
+			this.scene.scale(0.1,0.1,2);
+			this.bar.display();
+
+		this.scene.popMatrix();
 		
+		//HORIZONTAL TOP BAR LEFT
+			this.scene.pushMatrix();
+  		
+			this.scene.translate(1,2.5,-1);
+			this.scene.rotate(-Math.PI/2,0,1,0);
+			this.scene.scale(0.1,0.1,2);
+			this.bar.display();
+
+		this.scene.popMatrix();
 
 
+
+		//ANGLED BAR LEFT
+			this.scene.pushMatrix();
+  		
+			this.scene.translate(-0.9,2.55,-1);
+			this.scene.rotate(-Math.PI/2,0,1,0);
+			this.scene.rotate((Math.PI * 37 )/180,1,0,0);
+			this.scene.scale(0.1,0.1,2.3);
+			this.bar.display();
+
+		this.scene.popMatrix();
+
+		//ANGLED BAR RIGHT
+			this.scene.pushMatrix();
+  		
+			this.scene.translate(-0.9,2.55,1);
+			this.scene.rotate(-Math.PI/2,0,1,0);
+			this.scene.rotate((Math.PI * 37 )/180,1,0,0);
+			this.scene.scale(0.1,0.1,2.3);
+			this.bar.display();
+
+		this.scene.popMatrix();
+	
 	};
+
+
+	setTexture(texture)
+	{
+		this.texture = texture;
+	}
+
+
+
 };

@@ -6,253 +6,260 @@
 
 class MyVehicle extends CGFobject
 {
-	constructor(scene) 
+	constructor(scene,chassistexture,paneltexture) 
 	{
 		super(scene);
-		//this.wheel = new MyWheel(scene);
-		this.bar=new MyCylinder(this.scene,12,1);
+		this.wheel = new MyWheel(scene);
+		this.chassis = new MyChassis(scene);
+		this.headlight = new MyLamp(scene,20,20);
+		this.sidepanel = new MyTrapthing(scene,7.2,-0.1,-0.35,0.45,1.05);
+		this.backpanel = new MyTrapthing(scene,1.9,0,0,1.1,1.1);
+
+		this.mirror = new MyTrapezoid(scene,1,0.2,0.2,0.3,0.5);
+		this.placa = new MyTrapezoid(scene,2,0.35,0.35,1.6,0.1);
+		this.partebaixo = new MyTrapezoid(scene,3.8,1.17,1.17,6.95,0.05);
+		this.partebaixot = new MyTrapezoid(scene,4,0.95,0.95,2.59,0.05);
+
+		this.box = new MyUnitCubeQuad(scene);
+
+		this.paneltexture = paneltexture;
+		this.chassis.setTexture(chassistexture);
+
+		this.boxtexture = new CGFappearance(this.scene);
+		this.boxtexture.loadTexture("../resources/images/box.png"); 
+		this.boxtexture.setAmbient(1,1,1,1);
+
+		this.steer = 0;		
 	};
 
 	display()
 	{
-		//this.wheel.display();
+
+		
+	//WHEEL FRONT LEFT
+		this.scene.pushMatrix();
+ 		this.scene.translate(6.5,0,-2);
+ 		this.scene.rotate(this.steer,0,1,0);
+		this.wheel.display();
+
+		this.scene.popMatrix();
+
+	//WHEEL FRONT RIGHT
+		this.scene.pushMatrix();
+ 		this.scene.translate(6.5,0,2);
+ 		this.scene.rotate(this.steer,0,1,0);
+		this.wheel.display();
+		
+		this.scene.popMatrix();
+
+	//WHEEL BACK LEFT
+		this.scene.pushMatrix();
+ 		this.scene.translate(-1,0,-3.2);
+ 		this.scene.scale(1.5,1.5,1.5);
+		this.wheel.display();
+		
+		this.scene.popMatrix();
+
+	//WHEEL BACK RIGHT
+		this.scene.pushMatrix();
+
+ 		this.scene.translate(-1,0,3.2);
+ 		this.scene.scale(1.5,1.5,1.5);
+		this.wheel.display();
+		
+		this.scene.popMatrix();
+
+	//CHASSIS
+		this.scene.pushMatrix();
+		this.chassis.display();
+
+		this.scene.popMatrix();
 
 
 
+	//HEADLIGHTS
 
-		//X GUIDE TO BUILD
+		//FRONT LEFT
 			this.scene.pushMatrix();
 
-			this.scene.translate(-3,0,0);
-			this.scene.rotate(Math.PI/2,0,1,0);
-			this.scene.scale(0.25,0.25,10);
-			this.bar.display();
+			this.scene.translate(7.5,0.3,-0.5);
+			this.scene.rotate(-Math.PI/2,0,1,0);
+			this.scene.scale(0.4,0.4,0.4);
+			this.headlight.display();
+
+			this.scene.popMatrix();
+
+		//FRONT RIGHT
+			this.scene.pushMatrix();
+
+			this.scene.translate(7.5,0.3,0.5);
+			this.scene.rotate(-Math.PI/2,0,1,0);
+			this.scene.scale(0.4,0.4,0.4);
+			this.headlight.display();
+
+			this.scene.popMatrix();
+
+		//ROOF LEFT
+			this.scene.pushMatrix();
+
+			this.scene.translate(2.9,3,-0.5);
+			this.scene.rotate(-Math.PI/2,0,1,0);
+			this.scene.scale(0.5,0.5,0.5);
+			this.headlight.display();
 
 			this.scene.popMatrix();
 
 
-		//Z GUIDE TO BUILD BACK
+		//ROOF RIGHT
 			this.scene.pushMatrix();
 
-			this.scene.translate(0,0,2);
-			this.scene.rotate(Math.PI,0,1,0);
-			this.scene.scale(0.1,0.1,4);
-			this.bar.display();
+			this.scene.translate(2.9,3,0.5);
+			this.scene.rotate(-Math.PI/2,0,1,0);
+			this.scene.scale(0.5,0.5,0.5);
+			this.headlight.display();
 
 			this.scene.popMatrix();
 
 
 
-
-		//Z GUIDE TO BUILD FRONT
+	//FLOOR
+		//FRONT
 			this.scene.pushMatrix();
 
-			this.scene.translate(6.5,0,1.5);
-			this.scene.rotate(Math.PI,0,1,0);
-			this.scene.scale(0.1,0.1,3);
-			this.bar.display();
+			this.scene.translate(0,0,-1.9);
+			this.scene.rotate(-Math.PI/2,0,0,1);
+			this.scene.rotate(-Math.PI/2,0,1,0);
+			
+			this.partebaixo.display();
+
+			this.scene.popMatrix();
+			
+		//BACK
+			this.scene.pushMatrix();
+
+			this.scene.translate(0,0,-2);
+			this.scene.rotate(Math.PI/2,0,0,1);
+			this.scene.rotate(-Math.PI/2,0,1,0);
+			
+			this.partebaixot.display();
 
 			this.scene.popMatrix();
 
-		//FRONT PIECE 
-			//down
-			this.scene.pushMatrix();
 
-			this.scene.translate(6.95,0,0.73);
-			this.scene.rotate(Math.PI,0,1,0);
-			this.scene.scale(0.1,0.1,1.46);
-			this.bar.display();
 
-			this.scene.popMatrix();
-			//up
-			this.scene.pushMatrix();
+	//PANELS
 
-			this.scene.translate(7.15,0.4,1);
-			this.scene.rotate(Math.PI,0,1,0);
-			this.scene.scale(0.1,0.1,2);
-			this.bar.display();
-
-			this.scene.popMatrix();
-
+			this.paneltexture.apply();
+		//SIDE
 			//left
 			this.scene.pushMatrix();
-			
-			this.scene.translate(6.9,0,-0.64);
-			this.scene.rotate(Math.PI/2 + (Math.PI * 45)/180,0,1,0);
-			this.scene.rotate((Math.PI * -40)/180,1,0,0);
-			
-			this.scene.scale(0.1,0.1,0.58);
-			this.bar.display();
+
+			this.scene.translate(-0.1,0,-1.9);
+			this.scene.rotate((Math.PI * -10)/180,0,1,0);
+			this.scene.rotate((Math.PI * -15)/180,1,0,0);
+			this.sidepanel.display();
 
 			this.scene.popMatrix();
 
 			//right
 			this.scene.pushMatrix();
-			
-			this.scene.translate(6.9,0,0.64);
-			this.scene.rotate(Math.PI/2 - (Math.PI * 45)/180,0,1,0);
-			this.scene.rotate((Math.PI * -40)/180,1,0,0);
-			
-			this.scene.scale(0.1,0.1,0.58);
-			this.bar.display();
+
+			this.scene.translate(-0.1,0,1.9);
+			this.scene.rotate((Math.PI * 10)/180,0,1,0);
+			this.scene.rotate((Math.PI * 15)/180,1,0,0);
+			this.sidepanel.display();
 
 			this.scene.popMatrix();
-			
+
+
 		//BACK
-		 	
-		 	//left
-		 	this.scene.pushMatrix();
+			this.scene.pushMatrix();
 			
-			this.scene.translate(-0.45,1.1,-2.25);
-			this.scene.rotate((Math.PI * 45)/180,0,1,0);
-			this.scene.rotate((Math.PI * 65)/180,1,0,0);
-			
-			this.scene.scale(0.1,0.1,1.3);
-			this.bar.display();
-
-			this.scene.popMatrix();
-		 	
-		 	//right
-		 	this.scene.pushMatrix();
-			
-			this.scene.translate(0,0,1.9);
-			this.scene.rotate((Math.PI * -45)/180,0,1,0);
-			this.scene.rotate((Math.PI * -65)/180,1,0,0);
-			
-			this.scene.scale(0.1,0.1,1.3);
-			this.bar.display();
+			this.scene.translate(-2.7,0.05,-0.95)
+			this.scene.rotate(-Math.PI/2,0,1,0);
+			this.backpanel.display();
 
 			this.scene.popMatrix();
 
 
-
-		//LEFT BAR GUIDE (should only be needed to change values in scale)
+		//ROOF
 			this.scene.pushMatrix();
-
-			this.scene.translate(-0.08,0,-1.9);
-			this.scene.rotate(Math.PI/2 - (Math.PI * 10)/180,0,1,0);
-			this.scene.scale(0.1,0.1,7.2);
-			this.bar.display();
-
-			this.scene.popMatrix();
-
-			this.scene.pushMatrix();
-
-			this.scene.translate(-0.5,1.1,-2.3);
-			this.scene.rotate(Math.PI/2 - (Math.PI * 10)/180,0,1,0);
-			this.scene.rotate((Math.PI * 5)/180,1,0,0);
-			this.scene.scale(0.1,0.1,7.9);
-			this.bar.display();
-
-			this.scene.popMatrix();
-
-		//RIGHT BAR GUIDE (should only be needed to change values in scale)
-			this.scene.pushMatrix();
-
-			this.scene.translate(-0.08,0,1.9);
-			this.scene.rotate(Math.PI/2 + (Math.PI * 10)/180,0,1,0);
-			this.scene.scale(0.1,0.1,7.2);
-			this.bar.display();
-
-			this.scene.popMatrix();
-
-
-		this.scene.pushMatrix();
-
-			this.scene.translate(-0.5,1.1,2.3);
-			this.scene.rotate(Math.PI/2 + (Math.PI * 10)/180,0,1,0);
-			this.scene.rotate((Math.PI * 5)/180,1,0,0);
-			this.scene.scale(0.1,0.1,7.9);
-			this.bar.display();
-
-			this.scene.popMatrix();
-
-
-		//Z GUIDE TO BUILD BACK BIT
-			this.scene.pushMatrix();
-
-			this.scene.translate(-2.5,0,1);
-			this.scene.rotate(Math.PI,0,1,0);
-			this.scene.scale(0.1,0.1,2);
-			//this.bar.display();
-
-			this.scene.popMatrix();
-
-
-		//ROOF FRONT
-			this.scene.pushMatrix();
-
-			this.scene.translate(2.5,2.55,-0.65);
-		
-			this.scene.scale(0.1,0.1,1.3);
-			this.bar.display();
-
-			this.scene.popMatrix();
-		
-
-		//ROOF BACK
-			this.scene.pushMatrix();
-
 			this.scene.translate(0.9,2.55,-1);
-		
-			this.scene.scale(0.1,0.1,2);
-			this.bar.display();
+			this.scene.rotate(-Math.PI/2,0,0,1);
+			this.scene.rotate(-Math.PI/2,0,1,0);
+			this.placa.display();
 
 			this.scene.popMatrix();
 
 
-
-
-
-		//UPPER BARS LEFT
+	//MIRRORS
+		//LEFT
 			this.scene.pushMatrix();
 
+			this.scene.translate(4.7,0.6,-2.3);
+			this.scene.rotate(-Math.PI/2,0,0,1);
+			this.scene.rotate(-Math.PI/2,0,1,0);
+			this.mirror.display();
+
+			this.scene.popMatrix();
+
+
+		//RIGHT
+			this.scene.pushMatrix();
 			
-			this.scene.translate(-0.4,1,-2.3);
-			this.scene.rotate(Math.PI/2 - (Math.PI * 45)/180,0,1,0);
-			this.scene.rotate((Math.PI * -40)/180,1,0,0);
-			this.scene.scale(0.1,0.1,2.5);
-			this.bar.display();
+			this.scene.translate(4.7,0.6,1.3);
+			this.scene.rotate(-Math.PI/2,0,0,1);
+			this.scene.rotate(-Math.PI/2,0,1,0);
+			this.mirror.display();
 
 			this.scene.popMatrix();
 
-			this.scene.pushMatrix();
 
+	//BIG BOX
+			this.scene.pushMatrix();
 			
-			this.scene.translate(5,0.6,-1.3);
-			this.scene.rotate(-(Math.PI * 70)/180,1,0,0);
-			this.scene.rotate(-(Math.PI * 50)/180,0,1,0);
-			this.scene.scale(0.09,0.09,3.3);
-			this.bar.display();
+			this.scene.translate(-1.5,0.5,0);
+			
+			this.boxtexture.apply();
+			this.scene.scale(2,1,2);
+			this.box.display();
 
 			this.scene.popMatrix();
-
-
-		//UPPER BARS RIGHT
+			
+	//SMALL BOX
 			this.scene.pushMatrix();
-
-			this.scene.translate(-0.4,1,2.3);
-			this.scene.rotate(Math.PI/2 + (Math.PI * 45)/180,0,1,0);
-			this.scene.rotate((Math.PI * -40)/180,1,0,0);
-			this.scene.scale(0.1,0.1,2.5);
-			this.bar.display();
-
-			this.scene.popMatrix();
-
-			this.scene.pushMatrix();
-
-			this.scene.translate(5,0.6,1.3);
-			this.scene.rotate((Math.PI * 70)/180,1,0,0);
-			this.scene.rotate(-(Math.PI * 130)/180,0,1,0);
-			this.scene.scale(0.09,0.09,3.3);
-			this.bar.display();
+			
+			this.scene.translate(-1.5,1.5,0);
+			
+			this.boxtexture.apply();
+			
+			this.box.display();
 
 			this.scene.popMatrix();
 
 
 
-		
+
+	};
 
 
+	setchassisTexture(texture)
+	{
+		this.chassis.setTexture(texture);
+	};
+
+	setpanelTexture(texture)
+	{
+		this.paneltexture = texture;	
+	};
+
+	addSteer(steer)
+	{
+		this.steer += steer;
+	};
+
+	getSteer(steer)
+	{
+		return this.steer;
 	};
 };

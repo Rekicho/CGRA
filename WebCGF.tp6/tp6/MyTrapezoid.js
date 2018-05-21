@@ -18,25 +18,74 @@ class MyTrapezoid extends CGFobject
 		
 
 		this.initBuffers();
+
+
+		
 	};
 
 	initBuffers() 
 	{
 		this.vertices = [
 
-	
-				0, 0, this.depth,
+
+
+		        0, 0, this.depth,
+		        0, 0, this.depth,
+		        0, 0, this.depth,
+		        
 				this.B, 0, this.depth,
+				this.B, 0, this.depth,
+				this.B, 0, this.depth,
+
 				this.B - this.offr,this.h, this.depth,
+				this.B - this.offr,this.h, this.depth,
+				this.B - this.offr,this.h, this.depth,
+
 				this.offl, this.h,this.depth,
-		//back face
+				this.offl, this.h,this.depth,
+				this.offl, this.h,this.depth,
+		
 				0, 0,0,
+				0, 0,0,
+				0, 0,0,
+
 				this.B, 0, 0,
+				this.B, 0, 0,
+				this.B, 0, 0,
+
 				this.B - this.offr,this.h,0,
+				this.B - this.offr,this.h,0,
+				this.B - this.offr,this.h,0,
+
+				this.offl, this.h,0,
+				this.offl, this.h,0,
 				this.offl, this.h,0
+
+	
+
+
+
 				];
 
 		this.normals = [
+				0, 0, 1,
+				0, 0, 1,
+				0, 0, 1,
+				0, 0, 1,
+				0, 0, 1,
+				0, 0, 1,
+				0, 0, 1,
+				0, 0, 1,
+
+				0, 0, 1,
+				0, 0, 1,
+				0, 0, 1,
+				0, 0, 1,
+				0, 0, 1,
+				0, 0, 1,
+				0, 0, 1,
+				0, 0, 1,
+
 				0, 0, 1,
 				0, 0, 1,
 				0, 0, 1,
@@ -49,35 +98,77 @@ class MyTrapezoid extends CGFobject
 
 		this.indices = [
 
-	//front face
-				0, 1, 2, 
-				0, 2, 3,
 
-	//back face
-				4, 6, 5,
-				4, 7, 6,
-	//top right
-				1, 5, 2,
-				2, 5, 6,
-	//top
-				3, 2, 6,
-				6, 7, 3,
-	//top left
-				3, 4, 0,
-				7, 4, 3,
-	//bottom
-				1, 0, 5,
-				5, 0, 4
+		//front face
+				0, 3, 6,
+				0, 6, 9,
+
+
+		//back face
+				15, 12, 21,
+				15, 21, 18,
+
+		//right
+				4, 16, 19,
+				4, 19, 7,
+
+		//left
+				13, 1, 10,
+				13, 10, 22,
+
+		//top
+				8, 20, 23,
+				8, 23, 11,
+
+		//bottom
+				14, 17, 5,
+				14, 5, 2
+				
+
+		
+
+
+
 			];
 
-		/*this.texCoords = [
-				this.minS, this.maxT,
-      			this.maxS, this.maxT,
-      			this.minS, this.minT,
-      			this.maxS, this.minT
-		];*/
+		this.texCoords = [
+
+
+				0,1,
+				1,1,
+				0,0,
+				1,1,
+				0,1,
+				1,0,
+				1,0,
+				0,0,
+				1,1,
+				0,0,
+				1,0,
+				0,1,
+				1,1,
+				0,1,
+				0,1,
+				0,1,
+				1,1,
+				1,1,
+				0,0,
+				1,0,
+				1,0,
+				1,0,
+				0,0,
+				0,0
+
+
+
+
+      			
+		];
 			
 		this.primitiveType=this.scene.gl.TRIANGLES;
 		this.initGLBuffers();
 	};
+
+	
+
 };
