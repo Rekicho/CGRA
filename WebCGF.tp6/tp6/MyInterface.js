@@ -29,25 +29,30 @@ class MyInterface extends CGFinterface {
 
 		this.gui.add(this.scene, 'displayAxis');
 
+		this.initKeys();
+
 		return true;
 	};
 
-	/**
-	 * processKeyboard
-	 * @param event {Event}
-	 */
-	processKeyboard(event) {
-		// call CGFinterface default code (omit if you want to override)
-		super.processKeyboard(event);
+	initKeys() 
+	{
+		this.scene.gui=this;
+		this.processKeyboard=function(){};
+		this.activeKeys={};
+	};
+	
+	processKeyDown(event) 
+	{
+		this.activeKeys[event.code]=true;
+	};
 
-		// Check key codes e.g. here: http://www.asciitable.com/
-		// or use String.fromCharCode(event.keyCode) to compare chars
+	processKeyUp(event) 
+	{
+		this.activeKeys[event.code]=false;
+	};
 
-		// for better cross-browser support, you may also check suggestions on using event.which in http://www.w3schools.com/jsref/event_key_keycode.asp
-		switch (event.keyCode)
-		{
-			case (65):	// only works for capital 'A', as it is
-				console.log("Key 'A' pressed");
-		};
+	isKeyPressed(keyCode) 
+	{
+		return this.activeKeys[keyCode] || false;
 	};
 };

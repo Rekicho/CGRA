@@ -18,6 +18,10 @@ class LightingScene extends CGFscene
 		this.light5=false;
 		this.displayAxis = false;
 
+		this.carposition = 0;
+		this.carvelocity = 0;
+		this.carsteer = 0;
+
 		this.enableTextures(true);
 
 		this.initCameras();
@@ -141,7 +145,8 @@ class LightingScene extends CGFscene
 
 		//Scene elements
 		this.pushMatrix();
-		this.translate(0,0,0);
+		this.rotate(this.carsteer,0,1,0);
+		this.translate(this.carposition,1,0);
 		this.car.display();
 		this.popMatrix();
 
@@ -158,9 +163,59 @@ class LightingScene extends CGFscene
 		this.lastTime = this.lastTime || 0;
 		this.deltaTime = currTime - this.lastTime;
 		this.lastTime = currTime;
+		this.checkKeys();
 	};
 
-	doSomething()
-	{ console.log("Doing something..."); };
+	checkKeys()
+	{
+		var text="Keys pressed: ";
+		var keysPressed=false;
 
+		this.carvelocity = 0;
+
+		if (this.gui.isKeyPressed("KeyW"))
+		{
+			text+=" W ";
+			keysPressed=true;
+			
+			this.carvelocity = this.deltaTime / 100;
+		}
+
+		if (this.gui.isKeyPressed("KeyS"))
+		{
+			text+=" S ";
+			keysPressed=true;
+
+			this.carvelocity = -this.deltaTime / 100;
+		}
+
+		if (this.gui.isKeyPressed("KeyA"))
+		{
+			text+=" A ";
+			keysPressed=true;
+
+			if(this.carvelocity > 0)
+				this.carsteer += this.deltaTime / 1000;
+
+			if(this.carvelocity < 0)
+				this.carsteer -= this.deltaTime / 1000;
+		}
+
+		if (this.gui.isKeyPressed("KeyD"))
+		{
+			text+=" D ";
+			keysPressed=true;
+
+			if(this.carvelocity > 0)
+				this.carsteer -= this.deltaTime / 1000;
+
+			if(this.carvelocity < 0)
+				this.carsteer += this.deltaTime / 1000;
+		}
+
+		this.carposition += this.carvelocity;
+		
+		if (keysPressed)
+			console.log(text);
+	}
 };
