@@ -29,27 +29,26 @@ class MyVehicle extends CGFobject
 		this.boxtexture.loadTexture("../resources/images/box.png"); 
 		this.boxtexture.setAmbient(1,1,1,1);
 
-		this.steer = 0;		
+		this.position = 0;
+		this.velocity = 0;
+		this.steer = 0;
+		this.wheelSteer = 0;
 	};
 
 	display()
-	{
-
-		
+	{	
 	//WHEEL FRONT LEFT
 		this.scene.pushMatrix();
- 		this.scene.translate(6.5,0,-2);
- 		this.scene.rotate(this.steer,0,1,0);
-		this.wheel.display();
-
+ 			this.scene.translate(6.5,0,-2);
+ 			this.scene.rotate(this.wheelSteer,0,1,0);
+			this.wheel.display();
 		this.scene.popMatrix();
 
 	//WHEEL FRONT RIGHT
 		this.scene.pushMatrix();
- 		this.scene.translate(6.5,0,2);
- 		this.scene.rotate(this.steer,0,1,0);
-		this.wheel.display();
-		
+ 			this.scene.translate(6.5,0,2);
+ 			this.scene.rotate(this.wheelSteer,0,1,0);
+			this.wheel.display();
 		this.scene.popMatrix();
 
 	//WHEEL BACK LEFT
@@ -236,12 +235,7 @@ class MyVehicle extends CGFobject
 			this.box.display();
 
 			this.scene.popMatrix();
-
-
-
-
 	};
-
 
 	setchassisTexture(texture)
 	{
@@ -253,13 +247,47 @@ class MyVehicle extends CGFobject
 		this.paneltexture = texture;	
 	};
 
+	getPosition()
+	{
+		return this.position;
+	};
+
+	move()
+	{
+		this.position += this.velocity;
+	};
+
+	getVelocity()
+	{
+		return this.velocity;
+	};
+
+	setVelocity(velocity)
+	{
+		this.velocity = velocity;
+	};
+
+	getSteer()
+	{
+		return this.steer;
+	};
+
 	addSteer(steer)
 	{
 		this.steer += steer;
 	};
 
-	getSteer(steer)
+	getWheelSteer()
 	{
-		return this.steer;
+		return this.wheelSteer;
+	};
+
+	addWheelSteer(wheelSteer)
+	{
+		let temp = this.wheelSteer;
+		temp += wheelSteer;
+
+		if(temp < Math.PI/4 && temp > -Math.PI/4)
+			this.wheelSteer = temp;	
 	};
 };

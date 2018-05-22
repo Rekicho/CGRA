@@ -18,9 +18,6 @@ class LightingScene extends CGFscene
 		this.light5=false;
 		this.displayAxis = false;
 
-		this.carposition = 0;
-		this.carvelocity = 0;
-
 		this.enableTextures(true);
 
 		this.initCameras();
@@ -152,9 +149,9 @@ class LightingScene extends CGFscene
 		//CAR
 		this.pushMatrix();
 			this.rotate(this.car.getSteer(),0,1,0);
-			this.translate(this.carposition,1,0);
+			this.translate(this.car.getPosition(),1,0);
 				this.rotate(-0.07,0,0,1);
-				this.translate(0,1.5,0);
+				this.translate(0,0.4,0);
 				this.car.display();
 		this.popMatrix();
 
@@ -179,14 +176,14 @@ class LightingScene extends CGFscene
 		var text="Keys pressed: ";
 		var keysPressed=false;
 
-		this.carvelocity = 0;
+		this.car.setVelocity(0);
 
 		if (this.gui.isKeyPressed("KeyW"))
 		{
 			text+=" W ";
 			keysPressed=true;
 			
-			this.carvelocity = this.deltaTime / 100;
+			this.car.setVelocity(this.deltaTime / 100);
 		}
 
 		if (this.gui.isKeyPressed("KeyS"))
@@ -194,7 +191,7 @@ class LightingScene extends CGFscene
 			text+=" S ";
 			keysPressed=true;
 
-			this.carvelocity = -this.deltaTime / 100;
+			this.car.setVelocity(-this.deltaTime / 100);
 		}
 
 		if (this.gui.isKeyPressed("KeyA"))
@@ -202,10 +199,12 @@ class LightingScene extends CGFscene
 			text+=" A ";
 			keysPressed=true;
 
-			if(this.carvelocity > 0)
+			this.car.addWheelSteer(this.deltaTime / 1000);
+
+			if(this.car.getVelocity() > 0)
 				this.car.addSteer(this.deltaTime / 1000);
 
-			if(this.carvelocity < 0)
+			if(this.car.getVelocity() < 0)
 				this.car.addSteer(-this.deltaTime / 1000);
 		}
 
@@ -214,14 +213,16 @@ class LightingScene extends CGFscene
 			text+=" D ";
 			keysPressed=true;
 
-			if(this.carvelocity > 0)
+			this.car.addWheelSteer(-this.deltaTime / 1000);
+
+			if(this.car.getVelocity() > 0)
 				this.car.addSteer(-this.deltaTime / 1000);
 
-			if(this.carvelocity < 0)
+			if(this.car.getVelocity() < 0)
 				this.car.addSteer(this.deltaTime / 1000);
 		}
 
-		this.carposition += this.carvelocity;
+		this.car.move();
 		
 		if (keysPressed)
 			console.log(text);
