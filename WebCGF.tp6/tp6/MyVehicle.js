@@ -57,7 +57,6 @@ class MyVehicle extends CGFobject
 		this.scene.pushMatrix();
  		this.scene.translate(-1,0,-3.2);
  		this.scene.scale(1.5,1.5,1.5);
- 		this.scene.rotate(this.wheelSteer,0,1,0);
  		this.scene.rotate(-this.position / Math.PI,0,0,1);
 		this.wheel.display();
 		
@@ -68,7 +67,6 @@ class MyVehicle extends CGFobject
 
  		this.scene.translate(-1,0,3.2);
  		this.scene.scale(1.5,1.5,1.5);
- 		this.scene.rotate(this.wheelSteer,0,1,0);
  		this.scene.rotate(-this.position / Math.PI,0,0,1);
 		this.wheel.display();
 		
