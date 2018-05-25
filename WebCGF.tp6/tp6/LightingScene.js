@@ -35,13 +35,29 @@ class LightingScene extends CGFscene
 		// Materials
 		this.materialDefault = new CGFappearance(this);
 
-		this.texture = new CGFappearance(this);
-		this.texture.loadTexture("../resources/images/camo.png");
-		this.texture.setAmbient(1,1,1,1);
+		this.camo = new CGFappearance(this);
+		this.camo.loadTexture("../resources/images/camo.png");
+		this.camo.setAmbient(1,1,1,1);
+
+		this.nobrega = new CGFappearance(this);
+		this.nobrega.loadTexture("../resources/images/nobrega.png");
+		this.nobrega.setAmbient(1,1,1,1);
+
+		this.deadpool = new CGFappearance(this);
+		this.deadpool.loadTexture("../resources/images/deadpool.png");
+		this.deadpool.setAmbient(1,1,1,1);
+
+		this.vehicleAppearances = [this.camo, this.nobrega, this.deadpool];
+		this.vehicleAppearanceList = {};
+		this.vehicleAppearanceList["camo"] = 0;
+		this.vehicleAppearanceList["nobrega"] = 1;
+		this.vehicleAppearanceList["deadpool"] = 2;
+
+		this.currVehicleAppearance = 0;
 
 		//Scene elements
 
-		this.car = new MyVehicle(this, this.materialDefault, this.texture);
+		this.car = new MyVehicle(this, this.materialDefault, this.camo);
 		this.terrain = new MyTerrain(this,8,0,5,0,5);
 
 		this.setUpdatePeriod(1000/FPS);
@@ -169,6 +185,9 @@ class LightingScene extends CGFscene
 		this.deltaTime = currTime - this.lastTime;
 		this.lastTime = currTime;
 		this.checkKeys();
+
+		this.car.setpanelTexture(this.vehicleAppearances[this.currVehicleAppearance]);
+		console.log("X: " + this.car.getX() + " Z: " + this.car.getZ());
 	};
 
 	checkKeys()

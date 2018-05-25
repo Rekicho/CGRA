@@ -294,4 +294,14 @@ class MyVehicle extends CGFobject
 		if(temp < Math.PI/4 && temp > -Math.PI/4)
 			this.wheelSteer = temp;	
 	};
+
+	getX()
+	{
+		return this.position * Math.cos(this.steer);
+	}
+
+	getZ()
+	{
+		return this.position *  - Math.sin(this.steer);
+	}
 };

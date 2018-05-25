@@ -18,6 +18,8 @@ class MyInterface extends CGFinterface {
 
 		this.gui = new dat.GUI();
 
+		this.gui.add(this.scene, 'displayAxis');
+
 		var group=this.gui.addFolder("Lights");
 		group.open();
 
@@ -27,7 +29,7 @@ class MyInterface extends CGFinterface {
 		group.add(this.scene, 'light4');
 		group.add(this.scene, 'light5');
 
-		this.gui.add(this.scene, 'displayAxis');
+		this.gui.add(this.scene,"currVehicleAppearance",this.scene.vehicleAppearanceList);
 
 		this.initKeys();
 

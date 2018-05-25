@@ -17,18 +17,12 @@ class MyTrapezoid extends CGFobject
 		this.depth=depth; 
 		
 
-		this.initBuffers();
-
-
-		
+		this.initBuffers();	
 	};
 
 	initBuffers() 
 	{
 		this.vertices = [
-
-
-
 		        0, 0, this.depth,
 		        0, 0, this.depth,
 		        0, 0, this.depth,
@@ -60,11 +54,6 @@ class MyTrapezoid extends CGFobject
 				this.offl, this.h,0,
 				this.offl, this.h,0,
 				this.offl, this.h,0
-
-	
-
-
-
 				];
 
 		this.normals = [
@@ -97,8 +86,6 @@ class MyTrapezoid extends CGFobject
 		];
 
 		this.indices = [
-
-
 		//front face
 				0, 3, 6,
 				0, 6, 9,
@@ -123,17 +110,9 @@ class MyTrapezoid extends CGFobject
 		//bottom
 				14, 17, 5,
 				14, 5, 2
-				
-
-		
-
-
-
 			];
 
 		this.texCoords = [
-
-
 				0,1,
 				1,1,
 				0,0,
@@ -157,12 +136,7 @@ class MyTrapezoid extends CGFobject
 				1,0,
 				1,0,
 				0,0,
-				0,0
-
-
-
-
-      			
+				0,0	
 		];
 			
 		this.primitiveType=this.scene.gl.TRIANGLES;

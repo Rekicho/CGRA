@@ -17,9 +17,6 @@ class MyTrapthing extends CGFobject
 		this.hl=hl;
 
 		this.initBuffers();
-
-
-		
 	};
 
 	initBuffers() 
