@@ -41,6 +41,7 @@ class MyVehicle extends CGFobject
 		this.scene.pushMatrix();
  			this.scene.translate(6.5,0,-2);
  			this.scene.rotate(this.wheelSteer,0,1,0);
+ 			this.scene.rotate(-this.position / Math.PI,0,0,1); //Raio(0.5) * 2 * pi = Perimetro = pi 
 			this.wheel.display();
 		this.scene.popMatrix();
 
@@ -48,6 +49,7 @@ class MyVehicle extends CGFobject
 		this.scene.pushMatrix();
  			this.scene.translate(6.5,0,2);
  			this.scene.rotate(this.wheelSteer,0,1,0);
+ 			this.scene.rotate(-this.position / Math.PI,0,0,1);
 			this.wheel.display();
 		this.scene.popMatrix();
 
@@ -55,6 +57,8 @@ class MyVehicle extends CGFobject
 		this.scene.pushMatrix();
  		this.scene.translate(-1,0,-3.2);
  		this.scene.scale(1.5,1.5,1.5);
+ 		this.scene.rotate(this.wheelSteer,0,1,0);
+ 		this.scene.rotate(-this.position / Math.PI,0,0,1);
 		this.wheel.display();
 		
 		this.scene.popMatrix();
@@ -64,6 +68,8 @@ class MyVehicle extends CGFobject
 
  		this.scene.translate(-1,0,3.2);
  		this.scene.scale(1.5,1.5,1.5);
+ 		this.scene.rotate(this.wheelSteer,0,1,0);
+ 		this.scene.rotate(-this.position / Math.PI,0,0,1);
 		this.wheel.display();
 		
 		this.scene.popMatrix();
