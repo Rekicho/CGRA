@@ -11,7 +11,7 @@ class MyVehicle extends CGFobject
 		super(scene);
 		this.wheel = new MyWheel(scene);
 		this.chassis = new MyChassis(scene);
-		this.headlight = new MyLamp(scene,20,20);
+		this.headlight = new MyHeadlight(scene);
 		this.sidepanel = new MyTrapthing(scene,7.2,-0.1,-0.35,0.45,1.05);
 		this.backpanel = new MyTrapthing(scene,1.9,0,0,1.1,1.1);
 
@@ -29,10 +29,15 @@ class MyVehicle extends CGFobject
 		this.boxtexture.loadTexture("../resources/images/box.png"); 
 		this.boxtexture.setAmbient(1,1,1,1);
 
+		this.floortexture = new CGFappearance(this.scene);
+		this.floortexture.loadTexture("../resources/images/metalfloor.png"); 
+		this.floortexture.setAmbient(1,1,1,1);
+
 		this.position = 0;
 		this.velocity = 0;
 		this.steer = 0;
 		this.wheelSteer = 0;
+		this.height = 1;
 	};
 
 	display()
@@ -86,7 +91,7 @@ class MyVehicle extends CGFobject
 			this.scene.pushMatrix();
 
 			this.scene.translate(7.5,0.3,-0.5);
-			this.scene.rotate(-Math.PI/2,0,1,0);
+			this.scene.rotate(Math.PI/2,0,1,0);
 			this.scene.scale(0.4,0.4,0.4);
 			this.headlight.display();
 
@@ -96,7 +101,7 @@ class MyVehicle extends CGFobject
 			this.scene.pushMatrix();
 
 			this.scene.translate(7.5,0.3,0.5);
-			this.scene.rotate(-Math.PI/2,0,1,0);
+			this.scene.rotate(Math.PI/2,0,1,0);
 			this.scene.scale(0.4,0.4,0.4);
 			this.headlight.display();
 
@@ -106,7 +111,7 @@ class MyVehicle extends CGFobject
 			this.scene.pushMatrix();
 
 			this.scene.translate(2.9,3,-0.5);
-			this.scene.rotate(-Math.PI/2,0,1,0);
+			this.scene.rotate(Math.PI/2,0,1,0);
 			this.scene.scale(0.5,0.5,0.5);
 			this.headlight.display();
 
@@ -117,7 +122,7 @@ class MyVehicle extends CGFobject
 			this.scene.pushMatrix();
 
 			this.scene.translate(2.9,3,0.5);
-			this.scene.rotate(-Math.PI/2,0,1,0);
+			this.scene.rotate(Math.PI/2,0,1,0);
 			this.scene.scale(0.5,0.5,0.5);
 			this.headlight.display();
 
@@ -132,7 +137,7 @@ class MyVehicle extends CGFobject
 			this.scene.translate(0,0,-1.9);
 			this.scene.rotate(-Math.PI/2,0,0,1);
 			this.scene.rotate(-Math.PI/2,0,1,0);
-			
+			this.floortexture.apply();
 			this.partebaixo.display();
 
 			this.scene.popMatrix();

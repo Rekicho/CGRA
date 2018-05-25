@@ -11,12 +11,14 @@ class LightingScene extends CGFscene
 	{
 		super.init(application);
 
+		this.displayAxis = false;
+		this.displayObjetos = false;
+
 		this.light1=false; 
 		this.light2=false; 
 		this.light3=false; 
 		this.light4=false; 
 		this.light5=false;
-		this.displayAxis = false;
 
 		this.enableTextures(true);
 
@@ -55,10 +57,26 @@ class LightingScene extends CGFscene
 
 		this.currVehicleAppearance = 0;
 
+		this.chassistexture = new CGFappearance(this);
+		this.chassistexture.loadTexture("../resources/images/chassis.png");
+		this.chassistexture.setAmbient(1,1,1,1);
+
 		//Scene elements
 
-		this.car = new MyVehicle(this, this.materialDefault, this.camo);
+		this.car = new MyVehicle(this, this.chassistexture, this.camo);
 		this.terrain = new MyTerrain(this,8,0,5,0,5);
+
+		//Test Obejcts
+
+		this.testAppearance = new CGFappearance(this);
+		this.testAppearance.loadTexture("../resources/images/test.png");
+		this.testAppearance.setAmbient(1,1,1,1);
+
+		this.testCylinderOut = new MyCylinder(this,20,20,true);
+		this.testCylinderIn = new MyCylinder(this,20,20,false);
+		this.testLamp = new MyLamp(this,20,20);
+		this.testTrap = new MyTrapezoid(this,5,1,2,2,3);
+		this.testCube = new MyUnitCubeQuad(this);
 
 		this.setUpdatePeriod(1000/FPS);
 	};
@@ -176,6 +194,44 @@ class LightingScene extends CGFscene
 		this.terrain.display();
 		this.popMatrix();
 
+		//Test Objects
+
+		if(this.displayObjetos)
+		{
+			//Cilindro
+			this.pushMatrix();
+				this.translate(-24,1,24);
+				this.rotate(Math.PI/2,0,1,0);
+				this.rotate(Math.PI/2,1,0,0);
+				this.testAppearance.apply();
+				this.testCylinderIn.display();
+				this.testCylinderOut.display();
+			this.popMatrix();
+
+			//Semiesfera
+			this.pushMatrix();
+				this.translate(-22,0,24);
+				this.rotate(-Math.PI/2,1,0,0);
+				this.testAppearance.apply();
+				this.testLamp.display();
+			this.popMatrix();
+
+			//Trapézio
+			this.pushMatrix();
+				this.translate(-21,0,23.5);
+				this.scale(0.5,0.5,0.5);
+				this.testAppearance.apply();
+				this.testTrap.display();
+			this.popMatrix();
+
+			//Cubo
+			this.pushMatrix();
+				this.translate(-18,0.5,24.5);
+				this.testAppearance.apply();
+				this.testCube.display();
+			this.popMatrix();
+		}
+
 		// ---- END Scene drawing section
 	};
 
@@ -187,7 +243,6 @@ class LightingScene extends CGFscene
 		this.checkKeys();
 
 		this.car.setpanelTexture(this.vehicleAppearances[this.currVehicleAppearance]);
-		console.log("X: " + this.car.getX() + " Z: " + this.car.getZ());
 	};
 
 	checkKeys()

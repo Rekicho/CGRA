@@ -6,12 +6,17 @@
 
 class MyLamp extends CGFobject
 {
-	constructor(scene,slices,stacks) 
+	constructor(scene,slices,stacks, minS, maxS, minT, maxT) 
 	{
 		super(scene);
 
 		this.slices = slices;
 		this.stacks = stacks;
+
+		this.minS = minS || 0.0;
+        this.minT = minT || 0.0;
+        this.maxS = maxS || 1.0;
+        this.maxT = maxT || 1.0;
 		
 		this.initBuffers();
 	};
@@ -23,6 +28,8 @@ class MyLamp extends CGFobject
 		this.normals = [];
 
 		this.indices = [];
+
+		this.texCoords = [];
 
 		var ang = (2 * Math.PI) / this.slices;
 
@@ -39,6 +46,7 @@ class MyLamp extends CGFobject
 
 				this.vertices.push(raiz * Math.cos(alpha), raiz * Math.sin(alpha), div);
 				this.normals.push(raiz * Math.cos(alpha), raiz * Math.sin(alpha), div);
+				this.texCoords.push(0.5 + (Math.cos(i * ang) * Math.cos(Math.asin(div))) / 2.0, 0.5 - (Math.sin(i * ang) * Math.cos(Math.asin(div))) / 2.0);
 
 				if(j != this.stacks)
 				{
@@ -55,12 +63,12 @@ class MyLamp extends CGFobject
 					else {
 							this.indices.push(nextedge + i + 1, nextedge + i, edge + i + 1);
 							this.indices.push(edge + i + 1, nextedge + i, nextedge + i + 1);
-						 }
+					}
 				}
 			}
 		}
 
-		this.primitiveType=this.scene.gl.TRIANGLES;
+        this.primitiveType=this.scene.gl.TRIANGLES;
 		this.initGLBuffers();
 	};
 };

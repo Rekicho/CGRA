@@ -17,6 +17,9 @@ class MyTrapthing extends CGFobject
 		this.hl=hl;
 
 		this.initBuffers();
+
+
+		
 	};
 
 	initBuffers() 
@@ -67,13 +70,13 @@ class MyTrapthing extends CGFobject
 
 				0,1,
 				1,1,
-				1,0,
-				0,0,
+				1 - this.offr/this.B,0,
+				this.offl/this.B,0,
 
 				1,1,
 				0,1,
-				0,0,
-				1,0,
+				this.offl/this.B,0,
+				1 - this.offr/this.B,0,
 
 
       			

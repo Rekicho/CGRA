@@ -37,7 +37,7 @@ class MyWheel extends CGFobject
 		this.scene.popMatrix();
 
 		this.scene.pushMatrix();
-			this.scene.translate(-0.5,-0.55,0);
+			this.scene.translate(-0.55,-0.55,0);
 			this.scene.rotate(-Math.PI/4,0,0,1);
 			this.scene.rotate(-Math.PI/2,1,0,0);
 			this.scene.scale(0.15,0.15,1.75);

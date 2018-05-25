@@ -19,6 +19,7 @@ class MyInterface extends CGFinterface {
 		this.gui = new dat.GUI();
 
 		this.gui.add(this.scene, 'displayAxis');
+		this.gui.add(this.scene, 'displayObjetos');
 
 		var group=this.gui.addFolder("Lights");
 		group.open();
