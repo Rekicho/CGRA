@@ -63,8 +63,26 @@ class LightingScene extends CGFscene
 
 		//Scene elements
 
+		//Carro
 		this.car = new MyVehicle(this, this.chassistexture, this.camo);
-		this.terrain = new MyTerrain(this,8,0,5,0,5);
+		
+		//Terreno
+
+		this.altimetry= [[ 4.3 , 4.5 , 2.8 , 2.2 , 4.3 , 0.5 , 4.9 , 0.6 , 2.7 , 0.6 , 4.9 , 9.7 , 1.1 ],
+						 [ 9.0 , 4.6 , 0.7 , 0.2 , 6.3 , 0.3 , 7.6 , 7.1 , 2.3 , 2.5 , 1.2 , 9.1 , 4.2 ],
+						 [ 3.2 , 3.5 , 1.3 , 8.5 , 7.3 , 5.6 , 3.1 , 5.4 , 3.1 , 2.6 , 5.9 , 8.0 , 3.2 ],
+						 [ 3.9 , 3.8 , 3.4 , 3.6 , 0.1 , 2.4 , 3.5 , 6.0 , 2.6 , 5.0 , 1.5 , 5.4 , 7.3 ],
+						 [ 0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0 ],
+						 [ 0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0 ],
+						 [ 0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0 ],
+						 [ 0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0 ],
+						 [ 0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0 ],
+						 [ 7.8 , 1.7 , 8.6 , 9.7 , 0.5 , 9.9 , 0.5 , 8.9 , 9.8 , 1.4 , 5.2 , 1.5 , 7.8 ],
+						 [ 2.5 , 8.1 , 9.2 , 4.6 , 8.2 , 4.2 , 1.8 , 4.3 , 1.3 , 0.4 , 4.2 , 0.9 , 6.8 ],
+						 [ 3.4 , 5.4 , 4.8 , 0.1 , 3.4 , 7.9 , 7.0 , 7.2 , 7.6 , 7.6 , 7.1 , 3.3 , 6.5 ],
+						 [ 2.2 , 4.7 , 6.9 , 8.9 , 7.7 , 9.4 , 7.0 , 7.0 , 4.1 , 5.2 , 6.4 , 1.1 , 9.6 ],
+						];
+		this.terrain = new MyTerrain(this,12,0,5,0,5,this.altimetry);
 
 		//Test Obejcts
 
@@ -200,8 +218,8 @@ class LightingScene extends CGFscene
 		{
 			//Cilindro
 			this.pushMatrix();
-				this.translate(-24,1,24);
-				this.rotate(Math.PI/2,0,1,0);
+				this.translate(-24,1,-7);
+				this.rotate(-Math.PI/10,0,1,0);
 				this.rotate(Math.PI/2,1,0,0);
 				this.testAppearance.apply();
 				this.testCylinderIn.display();
@@ -210,7 +228,8 @@ class LightingScene extends CGFscene
 
 			//Semiesfera
 			this.pushMatrix();
-				this.translate(-22,0,24);
+				this.translate(-24,0,-5);
+				this.rotate(-Math.PI/2,0,1,0);
 				this.rotate(-Math.PI/2,1,0,0);
 				this.testAppearance.apply();
 				this.testLamp.display();
@@ -218,7 +237,8 @@ class LightingScene extends CGFscene
 
 			//Trapézio
 			this.pushMatrix();
-				this.translate(-21,0,23.5);
+				this.translate(-23.5,0,-4);
+				this.rotate(-Math.PI/2,0,1,0);
 				this.scale(0.5,0.5,0.5);
 				this.testAppearance.apply();
 				this.testTrap.display();
@@ -226,7 +246,7 @@ class LightingScene extends CGFscene
 
 			//Cubo
 			this.pushMatrix();
-				this.translate(-18,0.5,24.5);
+				this.translate(-24.5,0.5,-1);
 				this.testAppearance.apply();
 				this.testCube.display();
 			this.popMatrix();
