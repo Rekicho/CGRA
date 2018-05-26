@@ -9,8 +9,8 @@ class MyWheel extends CGFobject
 	constructor(scene) 
 	{
 		super(scene);
-		this.outside = new MyCylinder(scene,20,1,true);
-		this.inside = new MyCylinder(scene,20,1,false);
+		this.outside = new MyCylinder(scene,20,20,true);
+		this.inside = new MyCylinder(scene,20,20,false);
 		this.fronttire = new MyRing(scene,20,0.75,1,true);
 		this.backtire = new MyRing(scene,20,0.75,1,false);
 

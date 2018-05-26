@@ -9,7 +9,7 @@ class MyChassis extends CGFobject
 	constructor(scene) 
 	{
 		super(scene);
-		this.bar = new MyCylinder(this.scene,12,1,true);
+		this.bar = new MyCylinder(this.scene,12,12,true);
 
 
 		this.texture = new CGFappearance(this.scene);
