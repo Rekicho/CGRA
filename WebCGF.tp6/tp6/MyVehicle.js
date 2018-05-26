@@ -33,11 +33,68 @@ class MyVehicle extends CGFobject
 		this.floortexture.loadTexture("../resources/images/metalfloor.png"); 
 		this.floortexture.setAmbient(1,1,1,1);
 
-		this.position = 0;
 		this.velocity = 0;
 		this.steer = 0;
 		this.wheelSteer = 0;
 		this.height = 1;
+
+		this.x = -15;
+		this.z = 0;
+		this.wheelrot = 0;
+	};
+
+	drop(currTime)
+	{
+		if(!this.scene.crane.dropped)
+		{
+			this.steer += Math.PI;
+			this.scene.crane.dropped = true;
+		}
+		
+		if(this.height  > 1)
+		{
+			this.height -= 0.025 * currTime;
+		}
+		else
+		{
+			this.height = 1;
+		}
+		
+	};
+
+	reset_wheels(currTime)
+	{
+		if(this.wheelSteer < 0.05 && this.wheelSteer > -0.05)
+		{
+			this.wheelSteer = 0;
+		}
+		else if(this.wheelSteer > 0.05)
+		{
+			this.wheelSteer -= currTime * 2;
+		}
+		else if(this.wheelSteer < -0.05)
+		{
+			this.wheelSteer += currTime * 2;
+		}
+
+	};
+
+
+	hold_up(currTime)
+	{
+		if(this.velocity < 0.05 && this.velocity > -0.05)
+		{
+			this.velocity = 0;
+		}
+		else if(this.velocity > 0.05)
+		{
+			this.velocity -= currTime * this.velocity;
+		}
+		else if(this.velocity < -0.05)
+		{
+			this.velocity += currTime * Math.abs(this.velocity);
+		}
+
 	};
 
 	display()
@@ -46,7 +103,7 @@ class MyVehicle extends CGFobject
 		this.scene.pushMatrix();
  			this.scene.translate(6.5,0,-2);
  			this.scene.rotate(this.wheelSteer,0,1,0);
- 			this.scene.rotate(-this.position / Math.PI,0,0,1); //Raio(0.5) * 2 * pi = Perimetro = pi 
+ 			this.scene.rotate(this.wheelrot,0,0,1); //Raio(0.5) * 2 * pi = Perimetro = pi 
 			this.wheel.display();
 		this.scene.popMatrix();
 
@@ -54,7 +111,7 @@ class MyVehicle extends CGFobject
 		this.scene.pushMatrix();
  			this.scene.translate(6.5,0,2);
  			this.scene.rotate(this.wheelSteer,0,1,0);
- 			this.scene.rotate(-this.position / Math.PI,0,0,1);
+ 			this.scene.rotate(this.wheelrot,0,0,1);
 			this.wheel.display();
 		this.scene.popMatrix();
 
@@ -62,7 +119,7 @@ class MyVehicle extends CGFobject
 		this.scene.pushMatrix();
  		this.scene.translate(-1,0,-3.2);
  		this.scene.scale(1.5,1.5,1.5);
- 		this.scene.rotate(-this.position / Math.PI,0,0,1);
+ 		this.scene.rotate(this.wheelrot,0,0,1);
 		this.wheel.display();
 		
 		this.scene.popMatrix();
@@ -72,7 +129,7 @@ class MyVehicle extends CGFobject
 
  		this.scene.translate(-1,0,3.2);
  		this.scene.scale(1.5,1.5,1.5);
- 		this.scene.rotate(-this.position / Math.PI,0,0,1);
+ 		this.scene.rotate(this.wheelrot,0,0,1);
 		this.wheel.display();
 		
 		this.scene.popMatrix();
@@ -261,9 +318,11 @@ class MyVehicle extends CGFobject
 		return this.position;
 	};
 
-	move()
+	move(currTime)
 	{
-		this.position += this.velocity;
+		this.x += currTime  * this.velocity * Math.cos(this.steer);
+		this.z -= currTime  * this.velocity * Math.sin(this.steer);
+		this.wheelrot -= currTime * this.velocity;
 	};
 
 	getVelocity()
@@ -273,7 +332,8 @@ class MyVehicle extends CGFobject
 
 	setVelocity(velocity)
 	{
-		this.velocity = velocity;
+		if(Math.abs(velocity) < 0.25)
+		this.velocity += velocity;
 	};
 
 	getSteer()
@@ -283,7 +343,7 @@ class MyVehicle extends CGFobject
 
 	addSteer(steer)
 	{
-		this.steer += steer;
+		this.steer += steer * 2.5;
 	};
 
 	getWheelSteer()
@@ -294,7 +354,7 @@ class MyVehicle extends CGFobject
 	addWheelSteer(wheelSteer)
 	{
 		let temp = this.wheelSteer;
-		temp += wheelSteer;
+		temp += wheelSteer * 2.5;
 
 		if(temp < Math.PI/4 && temp > -Math.PI/4)
 			this.wheelSteer = temp;	
@@ -302,11 +362,23 @@ class MyVehicle extends CGFobject
 
 	getX()
 	{
-		return this.position * Math.cos(this.steer);
-	}
+		return this.x;
+	};
 
 	getZ()
 	{
-		return this.position *  - Math.sin(this.steer);
-	}
+		return this.z;
+	};
+
+	readyforpickup(){
+		
+		if(this.x >= -5 && this.x <= 5  && this.z <= -9 && this.z >= -16)
+		{
+			return true;	
+		}
+		else
+		{
+			return false;
+		}
+	};
 };

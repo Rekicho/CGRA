@@ -15,9 +15,6 @@ class MyCranePart extends CGFobject
 
 	display()
 	{	
-		
-
-		
 		//SIDE
 		this.scene.pushMatrix();
 		
@@ -26,8 +23,7 @@ class MyCranePart extends CGFobject
 		this.cylinder.display();
 
 		this.scene.popMatrix();
-
-		
+	
 		//TOP COVER
 		this.scene.pushMatrix();
 		
@@ -37,8 +33,6 @@ class MyCranePart extends CGFobject
 
 		this.scene.popMatrix();
 
-
-
 		//BACK COVER
 		this.scene.pushMatrix();
 		
@@ -46,6 +40,5 @@ class MyCranePart extends CGFobject
 		this.cover.display();
 
 		this.scene.popMatrix();
-
 	};
 };
