@@ -41,18 +41,18 @@ class LightingScene extends CGFscene
 		this.camo.loadTexture("../resources/images/camo.png");
 		this.camo.setAmbient(1,1,1,1);
 
-		this.nobrega = new CGFappearance(this);
-		this.nobrega.loadTexture("../resources/images/nobrega.png");
-		this.nobrega.setAmbient(1,1,1,1);
+		this.prof = new CGFappearance(this);
+		this.prof.loadTexture("../resources/images/nobrega.png");
+		this.prof.setAmbient(1,1,1,1);
 
 		this.deadpool = new CGFappearance(this);
 		this.deadpool.loadTexture("../resources/images/deadpool.png");
 		this.deadpool.setAmbient(1,1,1,1);
 
-		this.vehicleAppearances = [this.camo, this.nobrega, this.deadpool];
+		this.vehicleAppearances = [this.camo, this.prof, this.deadpool];
 		this.vehicleAppearanceList = {};
 		this.vehicleAppearanceList["camo"] = 0;
-		this.vehicleAppearanceList["nobrega"] = 1;
+		this.vehicleAppearanceList["prof"] = 1;
 		this.vehicleAppearanceList["deadpool"] = 2;
 
 		this.currVehicleAppearance = 0;
