@@ -332,8 +332,8 @@ class MyVehicle extends CGFobject
 
 	setVelocity(velocity)
 	{
-		if(Math.abs(velocity) < 0.25)
-		this.velocity += velocity;
+		if(Math.abs(this.velocity) < 10)
+			this.velocity += velocity;
 	};
 
 	getSteer()
